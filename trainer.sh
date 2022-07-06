@@ -2,14 +2,8 @@
 source ./linalg.sh
 source ./model.sh
 
-main(){
-    local p=$(matrix_multiply 10 20)
-    echo $p
-}
-
 train(){
     # Temp Train function for testing
-    # local ar1=(1 2 3 4 5 6 7 8 9)
     local ar1=(1 1 1 1 1 1 1 1 1)
     local ar2=(1 2 3 4 5 6 7 8 9)
     matrix_addition ar1 ar2 3 3
