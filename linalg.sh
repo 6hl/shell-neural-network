@@ -1,7 +1,20 @@
 #!/bin/bash
-matrix_multiply(){
-    echo Matrix multiply Not Complete
-}
+# matrix_multiply(){
+#     res_matrix=()
+#     for((x=0; x<row1; x++))
+#     do
+#         for((y=0; y<col2; y++))
+#         do
+#             for((z=0; z<row1; z++))
+#             do
+#                 idx1=$((x*$row1+z))
+#                 idx2=$((z*$col2+y))
+#                 result=$((result+${arr1[indx1]} * ${arr2[indx2]}))
+#             done
+#             matrix3+=($result)
+#         done
+#     done
+# }
 
 dot_product() {
     echo Dot Product Incomplete
@@ -11,25 +24,22 @@ matrix_addition() {
     # Computes addition of two matricies
     #
     # Args:
-    #   m1 (n,m): matrix 1
-    #   m2 (n,m): matrix 2
+    #   ar1 (n,m): matrix 1 formatted as an array
+    #   ar2 (n,m): matrix 2 formatted as an array
     #   rows: num rows
     #   cols: num cols
     #
     # Returns:
     #   Stores output into m global variable, view output with: echo ${matrix_add_out[@]}
-    m1=$1
-    m2=$2
-    rows=$3
-    cols=$4
-    k=0
-    for((i=0; i<rows; i++))
+
+    local -n _ar1=$1
+    local -n _ar2=$2
+    local rows=$3
+    local cols=$4
+    local idx=0
+    for v in "${_ar1[@]}";
     do
-        for((j=0; j<cols; j++))
-        do
-            index=$((i*cols+j))
-            matrix_add_out[$k]=$((${m1[index]} + ${m2[index]}))
-            k=$((k+1))
-        done
+        matrix_add_out[idx]=$(($v+${_ar2[idx]}))
+        idx=$((idx+1))
     done
 }

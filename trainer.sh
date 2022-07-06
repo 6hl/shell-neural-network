@@ -9,12 +9,13 @@ main(){
 
 train(){
     # Temp Train function for testing
-    local m1=(1 2 3 4 5 6 7 8 9)
-    local m2=(1 2 3 4 5 6 7 8 9)
-    matrix_addition $m1 $m2 3 3
+    # local ar1=(1 2 3 4 5 6 7 8 9)
+    local ar1=(1 1 1 1 1 1 1 1 1)
+    local ar2=(1 2 3 4 5 6 7 8 9)
+    matrix_addition ar1 ar2 3 3
     echo ${matrix_add_out[@]}
-    matrix_addition $matrix_add_out $m2 3 3
-    
+    matrix_addition matrix_add_out ar2 3 3
+    echo ${matrix_add_out[@]}
     matrix_multiply
 }
 
