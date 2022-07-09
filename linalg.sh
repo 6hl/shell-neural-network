@@ -4,8 +4,8 @@ matrix_addition() {
     # Computes addition of two matricies
     #
     # Args:
-    #   ar1 (n,m): matrix 1 formatted as an array
-    #   ar2 (n,m): matrix 2 formatted as an array
+    #   _ar1 (n,m): matrix 1 formatted as an array
+    #   _ar2 (n,m): matrix 2 formatted as an array
     #   rows: num rows
     #   cols: num cols
     #
@@ -28,8 +28,8 @@ matrix_multiply(){
     # Computes multiplication of two matricies
     #
     # Args:
-    #   ar1 (n,m): matrix 1 formatted as an array
-    #   ar2 (n,m): matrix 2 formatted as an array
+    #   _ar1 (n,m): matrix 1 formatted as an array
+    #   _ar2 (n,m): matrix 2 formatted as an array
     #   row_1: num rows for matrix 1
     #   col_2: num cols for matrix 2
     #
@@ -60,8 +60,8 @@ inplace_multiplication() {
     # Computes inplace multiplication of two matricies
     #
     # Args:
-    #   ar1 (n,m): matrix 1 formatted as an array
-    #   ar2 (n,m): matrix 2 formatted as an array
+    #   _ar1 (n,m): matrix 1 formatted as an array
+    #   _ar2 (n,m): matrix 2 formatted as an array
     #   rows: num rows
     #   cols: num cols
     #
