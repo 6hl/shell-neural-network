@@ -9,11 +9,11 @@ relu(){
     # Returns:
     #   Stores output into relu_out global variable, view output with: echo ${relu_out[@]}
     
-    local -n _ar1=$1
+    local _ar1=(${(P)1[@]})
     relu_out=()
     for i in "${_ar1[@]}";
     do
-        if [ $i -lt 0 ];
+        if [[ $i -lt 0 ]];
         then
             relu_out+=(0)
         else
