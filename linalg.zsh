@@ -31,14 +31,11 @@ matrix_multiply(){
     # Returns:
     #   Stores output into matrix_mult_out global variable, view output with: echo ${matrix_mult_out[@]}
 
-    # local -n _ar1=$1
-    # local -n _ar2=$2
-    local _ar1=$1
-    local _ar2=$2
+    local _ar1=(${(P)1[@]})
+    local _ar2=(${(P)2[@]})
     local row_1=$3
     local col_2=$4
     local result=0
-    local idx=0
     matrix_mult_out=()
     for ((x=0; x<$row_1; x++))
     do
@@ -47,8 +44,7 @@ matrix_multiply(){
             result=0
             for ((z=0; z<$row_1; z++))
             do
-                #result=$(($result+${_ar1[$((x*$row_1+z))]} * ${_ar2[$((z*$col_2+y))]}))
-                result=$(($result+${(P)_ar1[$((x*$row_1+z))]} * ${(P)_ar2[$((z*$col_2+y))]}))
+                result=$(($result+${_ar1[$((x*$row_1+z+1))]} * ${_ar2[$((z*$col_2+y+1))]}))
             done
             matrix_mult_out+=($result)
         done
@@ -71,7 +67,7 @@ inplace_multiplication() {
     for i in {1..$#_ar1};
     do
         inplace_mult_out+=($(($_ar1[i] * $_ar2[i])))
-    done 
+    done
 }
 
 dot_product() {

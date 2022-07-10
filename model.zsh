@@ -51,8 +51,5 @@ backprop(){
 }
 
 epoch(){
-    typeset _ar1=$1
-    typeset _ar2=$2
-
-    echo ${(P)_ar1[@]}, ${(P)_ar2[@]}
+    echo TODO: Complete single pass
 }
