@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 relu(){
     # Computes relu of matrix
@@ -22,13 +22,37 @@ relu(){
     done
 }
 
+softmax(){
+    # Computes softmax of vector
+    #
+    # Args:
+    #   _ar1 (?,): vector
+    #
+    # Returns:
+    #   Stores output into softmax_out global variable, view output with: echo ${softmax_out[@]}
+    
+    local -n _ar1=$1
+    local e=2.7182818
+    local sum=0
+    relu_out=()
+    for i in "${_ar1[@]}";
+    do
+        sum+=$(($e**$i))
+    done
+    echo sum
+}
+
 forward_pass(){
     echo TODO: Start foward pass using linalg funcs
 }
+
 backprop(){
     echo TODO: Complete backpropogation
 }
 
 epoch(){
-    echo TODO: Complete One Pass func
+    typeset _ar1=$1
+    typeset _ar2=$2
+
+    echo ${(P)_ar1[@]}, ${(P)_ar2[@]}
 }

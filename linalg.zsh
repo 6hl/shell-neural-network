@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 matrix_addition() {
     # Computes addition of two matricies
@@ -12,16 +12,13 @@ matrix_addition() {
     # Returns:
     #   Stores output into matrix_add_out global variable, view output with: echo ${matrix_add_out[@]}
     
-    local -n _ar1=$1
-    local -n _ar2=$2
-    local rows=$3
-    local cols=$4
-    local idx=0
+    local _ar1=(${(P)1[@]})
+    local _ar2=(${(P)2[@]})
     matrix_add_out=()
-    for i in "${!_ar1[@]}";
+    for i in {1..$#_ar1};
     do
-        matrix_add_out+=($((${_ar1[i]}+${_ar2[i]})))
-    done
+        matrix_add_out+=($(($_ar1[i] + $_ar2[i])))
+    done 
 }
 
 matrix_multiply(){
@@ -35,21 +32,25 @@ matrix_multiply(){
     #
     # Returns:
     #   Stores output into matrix_mult_out global variable, view output with: echo ${matrix_mult_out[@]}
-    local -n _ar1=$1
-    local -n _ar2=$2
+
+    # local -n _ar1=$1
+    # local -n _ar2=$2
+    local _ar1=$1
+    local _ar2=$2
     local row_1=$3
     local col_2=$4
     local result=0
     local idx=0
     matrix_mult_out=()
-    for((x=0; x<$row_1; x++))
+    for ((x=0; x<$row_1; x++))
     do
-        for((y=0; y<$col_2; y++))
+        for ((y=0; y<$col_2; y++))
         do
             result=0
-            for((z=0; z<$row_1; z++))
+            for ((z=0; z<$row_1; z++))
             do
-                result=$(($result+${_ar1[$((x*$row_1+z))]} * ${_ar2[$((z*$col_2+y))]}))
+                #result=$(($result+${_ar1[$((x*$row_1+z))]} * ${_ar2[$((z*$col_2+y))]}))
+                result=$(($result+${(P)_ar1[$((x*$row_1+z))]} * ${(P)_ar2[$((z*$col_2+y))]}))
             done
             matrix_mult_out+=($result)
         done
@@ -68,15 +69,18 @@ inplace_multiplication() {
     # Returns:
     #   Stores output into inplace_mult_out global variable, view output with: echo ${inplace_mult_out[@]}
     
-    local -n _ar1=$1
-    local -n _ar2=$2
+    # local -n _ar1=$1
+    # local -n _ar2=$2
+    local _ar1=$1
+    local _ar2=$2
     local rows=$3
     local cols=$4
     local idx=0
     inplace_mult_out=()
     for i in "${!_ar1[@]}";
     do
-        inplace_mult_out+=($((${_ar1[i]} * ${_ar2[i]})))
+        #inplace_mult_out+=($((${_ar1[i]} * ${_ar2[i]})))
+        inplace_mult_out+=($((${(P)_ar1[i]} * ${(P)_ar2[i]})))
     done
 }
 
