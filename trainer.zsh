@@ -10,11 +10,11 @@ train(){
     local ar4=(-1 2 3 -4 5 6 7 -8 9)
     local row=3
     local col=3
-    matrix_addition ar1 ar2 3 3
+    matrix_addition ar1 ar2
     echo ${matrix_add_out[@]}
-    matrix_multiply ar1 ar2 3 3
-    echo ${matrix_mult_out[@]}
-    inplace_multiplication ar2 ar3 3 3
+    # matrix_multiply ar1 ar2 3 3
+    # echo ${matrix_mult_out[@]}
+    inplace_multiplication ar2 ar3
     echo ${inplace_mult_out[@]}
     # relu ar4
     # echo ${relu_out[@]}

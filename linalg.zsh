@@ -6,8 +6,6 @@ matrix_addition() {
     # Args:
     #   _ar1 (n,m): matrix 1 formatted as an array
     #   _ar2 (n,m): matrix 2 formatted as an array
-    #   rows: num rows
-    #   cols: num cols
     #
     # Returns:
     #   Stores output into matrix_add_out global variable, view output with: echo ${matrix_add_out[@]}
@@ -63,25 +61,17 @@ inplace_multiplication() {
     # Args:
     #   _ar1 (n,m): matrix 1 formatted as an array
     #   _ar2 (n,m): matrix 2 formatted as an array
-    #   rows: num rows
-    #   cols: num cols
     #
     # Returns:
     #   Stores output into inplace_mult_out global variable, view output with: echo ${inplace_mult_out[@]}
     
-    # local -n _ar1=$1
-    # local -n _ar2=$2
-    local _ar1=$1
-    local _ar2=$2
-    local rows=$3
-    local cols=$4
-    local idx=0
+    local _ar1=(${(P)1[@]})
+    local _ar2=(${(P)2[@]})
     inplace_mult_out=()
-    for i in "${!_ar1[@]}";
+    for i in {1..$#_ar1};
     do
-        #inplace_mult_out+=($((${_ar1[i]} * ${_ar2[i]})))
-        inplace_mult_out+=($((${(P)_ar1[i]} * ${(P)_ar2[i]})))
-    done
+        inplace_mult_out+=($(($_ar1[i] * $_ar2[i])))
+    done 
 }
 
 dot_product() {
