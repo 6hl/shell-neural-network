@@ -31,15 +31,18 @@ softmax(){
     # Returns:
     #   Stores output into softmax_out global variable, view output with: echo ${softmax_out[@]}
     
-    local -n _ar1=$1
+    local _ar1=(${(P)1[@]})
     local e=2.7182818
     local sum=0
-    relu_out=()
+    softmax_out=()
     for i in "${_ar1[@]}";
     do
-        sum+=$(($e**$i))
+        sum=$((sum+$e**$i))
     done
-    echo sum
+    for i in "${_ar1[@]}";
+    do
+        softmax_out+=($(($e**$i/$sum)))
+    done
 }
 
 forward_pass(){

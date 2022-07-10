@@ -18,8 +18,8 @@ train(){
     echo Inplace Multiplication: ${inplace_mult_out[@]}
     relu ar4
     echo ReLU Activation: ${relu_out[@]}
-    # softmax ar1
-    # echo ${softmax_out[@]}
+    softmax ar1
+    echo ${softmax_out[@]}
 }
 
 declare -a matrix_add_out
