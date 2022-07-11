@@ -2,7 +2,7 @@
 source ./linalg.zsh
 source ./model.zsh
 
-train(){
+functionality_test(){
     # Temp Train function for testing
     local ar1=(1.5 1 1 1 1 1 1 1 1)
     local ar2=(1 2.5 3 4 5 6 7 8 9)
@@ -20,6 +20,7 @@ train(){
     echo ReLU Activation: ${relu_out[@]}
     softmax ar1
     echo ${softmax_out[@]}
+    forward_pass ar1
 }
 
 declare -a matrix_add_out
@@ -30,5 +31,13 @@ declare -a dot_prod_out
 declare -a relu_out
 declare -a softmax_out
 
+declare -a w1
+declare -a b1
+declare -a w2
+declare -a b2
+declare -a z1
+declare -a z2
 
-train
+functionality_test
+
+

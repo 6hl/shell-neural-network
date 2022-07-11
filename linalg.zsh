@@ -69,7 +69,3 @@ inplace_multiplication() {
         inplace_mult_out+=($(($_ar1[i] * $_ar2[i])))
     done
 }
-
-dot_product() {
-    echo Dot Product Incomplete
-}
