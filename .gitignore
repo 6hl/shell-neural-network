@@ -1,2 +1,6 @@
 *.PNG
 *.txt
+*.py        # Dataset Preprocessing
+env/
+*.csv
+functionality_test.zsh
