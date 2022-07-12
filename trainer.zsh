@@ -21,10 +21,10 @@ declare -a dot_prod_out
 declare -a relu_out
 declare -a softmax_out
 
-declare -a w1=($(shuf -i 1-100 -n 785))
-declare -a b1=($(shuf -i 1-100 -n 5))
-declare -a w2=($(shuf -i 1-100 -n 5))
-declare -a b2=($(shuf -i 1-100 -n 5))
+declare -a w1=($(seq 0 .0001 .99 | shuf | head -n7850))
+declare -a b1=($(seq 0 .0001 .99 | shuf | head -n10))
+declare -a w2=($(seq 0 .0001 .99 | shuf | head -n100))
+declare -a b2=($(seq 0 .0001 .99 | shuf | head -n10))
 declare -a z1
 declare -a z2
 
