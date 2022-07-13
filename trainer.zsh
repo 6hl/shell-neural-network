@@ -18,6 +18,6 @@ declare -a z1
 declare -a z2
 
 declare -a sample=()
-declare -a y_val
+declare -a target=()
 
 iteration

@@ -79,9 +79,9 @@ iteration(){
         read
         while read l ; do
             sample=()
-            val=255
+            target=()
             clean=(${=$(echo "$l" | tr ',' ' ' | tr -s ' ')})
-            y_val=$clean[1]
+            for i in {0..9}; do if [[ $i = $clean[1] ]]; then target+=(1); else target+=(0); fi; done
             shift clean
             for i in $clean; do sample+=($(($i/255.0))); done
             forward_pass sample 10 784
@@ -89,5 +89,4 @@ iteration(){
             break
         done 
     } < fashion-mnist_train.csv
-
 }
