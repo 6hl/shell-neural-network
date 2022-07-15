@@ -65,7 +65,6 @@ matrix_multiply(){
             result=0
             for ((k=0; k<$col_1; k++))
             do
-                # result=$(($result+${_ar1[$((i*$row_1+k+1))]} * ${_ar2[$((k*$col_2+j+1))]}))
                 result=$(($result+${_ar1[$((i*$col_1+k+1))]} * ${_ar2[$((k*$col_2+j+1))]}))
             done
             matrix_mult_out+=( $result ) 
