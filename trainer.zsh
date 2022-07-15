@@ -30,7 +30,7 @@ declare -a gb2
 declare -a sample=()
 declare -a target=()
 declare lr=$2
-declare avg_loss=0.0
+declare tot_loss=0.0
 
 epch=$1
 for i in {1..$epch};

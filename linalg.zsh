@@ -13,10 +13,7 @@ matrix_addition() {
     local _ar1=(${(P)1[@]})
     local _ar2=(${(P)2[@]})
     matrix_add_out=()
-    for i in {1..$#_ar1};
-    do
-        matrix_add_out+=($(($_ar1[i] + $_ar2[i])))
-    done 
+    for i in {1..$#_ar1}; do matrix_add_out+=($(($_ar1[i] + $_ar2[i]))); done 
 }
 
 matrix_subtraction() {
@@ -32,10 +29,7 @@ matrix_subtraction() {
     local _ar1=(${(P)1[@]})
     local _ar2=(${(P)2[@]})
     matrix_sub_out=()
-    for i in {1..$#_ar1};
-    do
-        matrix_sub_out+=($(($_ar1[i] - $_ar2[i])))
-    done 
+    for i in {1..$#_ar1}; do matrix_sub_out+=($(($_ar1[i] - $_ar2[i]))); done 
 }
 
 matrix_multiply(){
@@ -85,10 +79,7 @@ inplace_multiplication() {
     local _ar1=(${(P)1[@]})
     local _ar2=(${(P)2[@]})
     inplace_mult_out=()
-    for i in {1..$#_ar1};
-    do
-        inplace_mult_out+=($(($_ar1[i] * $_ar2[i])))
-    done
+    for i in {1..$#_ar1}; do inplace_mult_out+=($(($_ar1[i] * $_ar2[i]))); done
 }
 
 transpose() {

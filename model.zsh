@@ -36,14 +36,8 @@ softmax(){
     local e=2.7182818
     local sum=0
     softmax_out=()
-    for i in $_ar1;
-    do
-        sum=$((sum+$e**$i))
-    done
-    for i in $_ar1;
-    do
-        softmax_out+=($(($e**$i/$sum)))
-    done
+    for i in $_ar1; do sum=$((sum+$e**$i)); done
+    for i in $_ar1; do softmax_out+=($(($e**$i/$sum))); done
 }
 
 forward_pass(){
@@ -118,8 +112,7 @@ cross_entropy_loss(){
     local loss=0.0
     logarithm _ar2
     for i in {1..$#_ar1}; do loss=$(($loss+$_ar1[$i]*$log_out[$i])); done
-    avg_loss=$((avg_loss-loss))
-    echo $loss, $avg_loss
+    tot_loss=$((tot_loss-loss))
 }
 
 backpropagation(){
@@ -176,7 +169,7 @@ iteration(){
             then
                 end=$(date +%s.%N)
                 runtime=$( echo "$end - $start" | bc -l )
-                echo Epoch: $epoch, Iteration: $its, Loss: $((avg_loss/$its)), Time taken: $runtime s
+                echo Epoch: $epoch, Iteration: $its, Loss: $((tot_loss/$its)), Time taken: $runtime s
                 start=$(date +%s.%N)
             fi
             its=$(($its+1))
