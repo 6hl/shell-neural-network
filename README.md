@@ -1,4 +1,7 @@
-# Repository dedicated to making a neural network from shell scripting language
+# Repository for shell neural network
+### Functional linear algebra and simple nn implemented using suboptimal programming language
+
+Run code with `./trainer.zsh 5 0.0001`
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/67758714/177638848-24e20a9d-2bca-419e-b233-1cd25a8ec316.PNG" />
