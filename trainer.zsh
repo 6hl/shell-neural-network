@@ -34,6 +34,7 @@ declare tot_loss=0.0
 
 epch=$1
 for i in {1..$epch};
-do
+do  
+    tot_loss=0.0
     iteration $i
 done
