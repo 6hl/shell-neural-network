@@ -140,7 +140,7 @@ backpropagation(){
     cross_entropy_loss target softmax_out
 }
 
-iteration(){
+epoch(){
     # Function runs iterations for all samples
     #
     # Args:
@@ -149,8 +149,8 @@ iteration(){
     # Returns:
     #   none
 
-    epoch=$1
-    echo Starting Epoch: $epoch
+    epoch_num=$1
+    echo Starting Epoch: $epoch_num
     {   
         read
         its=1
@@ -169,7 +169,7 @@ iteration(){
             then
                 end=$(date +%s.%N)
                 runtime=$( echo "$end - $start" | bc -l )
-                echo Epoch: $epoch, Iteration: $its, Loss: $((tot_loss/$its)), Time taken: $runtime s
+                echo Epoch: $epoch_num, Iteration: $its, Loss: $((tot_loss/$its)), Time taken: $runtime s
                 start=$(date +%s.%N)
             fi
             its=$(($its+1))

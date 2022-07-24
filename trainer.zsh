@@ -36,5 +36,5 @@ epch=$1
 for i in {1..$epch};
 do  
     tot_loss=0.0
-    iteration $i
+    epoch $i
 done
