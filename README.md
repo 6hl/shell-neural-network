@@ -1,7 +1,7 @@
 # Repository for shell neural network
 ### Functional linear algebra and simple nn implemented using suboptimal programming language
 
-Train model with `./trainer.zsh <epochs> <stepsize>`
+Train model with `./trainer.zsh <epochs> <stepsize> <batch_size>`
 
 Test model with `./evaluator.zsh`
 

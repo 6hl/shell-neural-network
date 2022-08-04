@@ -69,10 +69,10 @@ stochastic_gradient_descent(){
     # Returns:
     #   none
 
-    for i in {1..$#w1}; do w1[i]=$(($w1[$i]-$lr*$gw1[$i])); done
-    for i in {1..$#w2}; do w2[i]=$(($w2[$i]-$lr*$gw2[$i])); done
-    for i in {1..$#b1}; do b1[i]=$(($b1[$i]-$lr*$gb1[$i])); done
-    for i in {1..$#b2}; do b2[i]=$(($b2[$i]-$lr*$gb2[$i])); done
+    for i in {1..$#w1}; do w1[i]=$(($w1[$i]-$lr*$gw1[$i]/$BATCH_SIZE)); done
+    for i in {1..$#w2}; do w2[i]=$(($w2[$i]-$lr*$gw2[$i]/$BATCH_SIZE)); done
+    for i in {1..$#b1}; do b1[i]=$(($b1[$i]-$lr*$gb1[$i]/$BATCH_SIZE)); done
+    for i in {1..$#b2}; do b2[i]=$(($b2[$i]-$lr*$gb2[$i]/$BATCH_SIZE)); done
 }
 
 logarithm(){
@@ -119,25 +119,60 @@ backpropagation(){
     # Function computes backpropagation from forward pass
     #
     # Args:
-    #   none
+    #   iter
     #
     # Returns:
     #   none
 
+    local it=$1
+
     matrix_subtraction softmax_out target
     matrix_multiply matrix_sub_out relu_out 10 1 10
-    gw2=( $matrix_mult_out )                                # gradient of w2
-    gb2=( $matrix_sub_out )                                 # gradient of b2
+    t_gw2=( $matrix_mult_out )                                # gradient of w2
+    t_gb2=( $matrix_sub_out )                                 # gradient of b2
     transpose w2 10 10
     matrix_multiply transpose_out matrix_sub_out 10 10 1
     temp=( $matrix_mult_out )
     relu z1
     matrix_multiply temp relu_out 10 1 1
-    gb1=( $matrix_mult_out )                                # gradient of b1
-    matrix_multiply gb1 sample 10 1 784
-    gw1=( $matrix_mult_out )                                # gradient of w1
-    stochastic_gradient_descent
-    cross_entropy_loss target softmax_out
+    t_gb1=( $matrix_mult_out )                                # gradient of b1
+    matrix_multiply t_gb1 sample 10 1 784
+    t_gw1=( $matrix_mult_out )                                # gradient of w1
+
+    if [[ $BATCH_FLAG -eq 1 ]];
+    then
+        if [[ $its -eq 1 ]];
+        then
+            gw2=( $t_gw2 )
+            gw1=( $t_gw1 )
+            gb2=( $t_gb2 )
+            gb1=( $t_gb1 )
+        else
+            for i in {1..$#gw1}; do gw1[i]=$(($t_gw1[$i]+$gw1[$i])); done
+            for i in {1..$#gw2}; do gw2[i]=$(($t_gw2[$i]+$gw2[$i])); done
+            for i in {1..$#gb1}; do gb1[i]=$(($t_gb1[$i]+$gb1[$i])); done
+            for i in {1..$#gb2}; do gb2[i]=$(($t_gb2[$i]+$gb2[$i])); done
+            
+            if [[ $(($its%$BATCH_SIZE)) -eq 0 ]];
+            then
+                # When the batch size is met, update the variables and clear gradients
+                stochastic_gradient_descent
+                cross_entropy_loss target softmax_out
+                for i in {1..$#gw1}; do gw1[i]=0; done
+                for i in {1..$#gw2}; do gw2[i]=0; done
+                for i in {1..$#gb1}; do gb1[i]=0; done
+                for i in {1..$#gb2}; do gb2[i]=0; done
+            fi
+        fi
+    else
+        gw2=( $t_gw2 )
+        gw1=( $t_gw1 )
+        gb2=( $t_gb2 )
+        gb1=( $t_gb1 )
+        stochastic_gradient_descent
+        cross_entropy_loss target softmax_out
+    fi
+    
 }
 
 epoch(){
@@ -162,14 +197,20 @@ epoch(){
             for i in {0..9}; do if [[ $i = $clean[1] ]]; then target+=(1); else target+=(0); fi; done
             shift clean
             for i in $clean; do sample+=($(($i/255.0))); done
-            forward_pass sample 10 784
-            backpropagation
+            forward_pass sample
+            backpropagation $its
 
-            if [[ $(($its%50)) -eq 0 ]];
+            if [[ $(($its%50)) -eq 0 && $BATCH_FLAG -eq 0 ]];               # Run for single sample batch size
             then
                 end=$(date +%s.%N)
                 runtime=$( echo "$end - $start" | bc -l )
                 echo Epoch: $epoch_num, Iteration: $its, Loss: $((tot_loss/$its)), Time taken: $runtime s
+                start=$(date +%s.%N)
+            elif [[ $(($its%$BATCH_SIZE)) -eq 0 && $BATCH_FLAG -eq 1 ]];    # Run for multi sample batch
+            then
+                end=$(date +%s.%N)
+                runtime=$( echo "$end - $start" | bc -l )
+                echo Epoch: $epoch_num, Iteration: $its, Loss: $((tot_loss/$its*$BATCH_SIZE)), Time taken: $runtime s
                 start=$(date +%s.%N)
             fi
             its=$(($its+1))

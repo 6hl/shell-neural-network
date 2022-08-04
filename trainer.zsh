@@ -26,14 +26,28 @@ declare -a gb1
 declare -a gw2
 declare -a gb2
 
+declare -a t_gw1
+declare -a t_gb1
+declare -a t_gw2
+declare -a t_gb2
+
 # Initialize inputs
 declare -a sample=()
 declare -a target=()
 declare lr=$2
 declare tot_loss=0.0
 
-epch=$1
-for i in {1..$epch};
+if [[ $3 -eq 1 ]];
+then
+    declare BATCH_SIZE=1
+    declare BATCH_FLAG=0
+else
+    declare BATCH_SIZE=$3
+    declare BATCH_FLAG=1
+fi
+
+num_epch=$1
+for i in {1..$num_epch};
 do  
     tot_loss=0.0
     epoch $i
