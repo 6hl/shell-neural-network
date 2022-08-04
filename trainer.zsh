@@ -38,3 +38,6 @@ do
     tot_loss=0.0
     epoch $i
 done
+
+# Save model weights
+declare -p w1 b1 w2 b2 > weights.zsh
